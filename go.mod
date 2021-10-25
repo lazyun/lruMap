@@ -1,3 +1,3 @@
-module lruMap
+module github.com/lazyun/lruMap
 
 go 1.15
