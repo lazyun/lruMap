@@ -47,7 +47,17 @@ func (m *Manager) Close() {
 }
 
 func (m *Manager) Get(key string) (interface{}, bool) {
-	return m.value.Load(key)
+	v, ok := m.value.Load(key)
+	if !ok {
+		return nil, false
+	}
+
+	info, ok := v.(*lruNode)
+	if !ok {
+		return nil, false
+	}
+
+	return info.value, true
 }
 
 func (m *Manager) Set(key string, value interface{}) {
